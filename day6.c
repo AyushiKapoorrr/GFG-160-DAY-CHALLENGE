@@ -1,3 +1,6 @@
+int cmp(const void* a,const void* b){
+    return (*(int*)a - *(int*)b);
+}
 int* findMajority(int arr[], int n, int* resultsize) {
     int count1=0,count2=0;
     int candidate1=-1,candidate2=-1;
@@ -28,18 +31,22 @@ int* findMajority(int arr[], int n, int* resultsize) {
         else if(arr[i]==candidate2){
             count2++;
         }
-        
+    }  
     int* result =(int*)malloc(2*sizeof(int));
     *resultsize=0;
     
-    if(count1>n/3)result[(*resultsize)++]=candidate1;
-    if(count2>n/3)result[(*resultsize)++]=candidate2;
+    if(count1>n/3)
+    result[(*resultsize)++]=candidate1;
+    if(count2>n/3)
+    result[(*resultsize)++]=candidate2;
     
     if(*resultsize==0){
         free (result);
         return NULL;
     }
+    
+    if(*resultsize>1)
+    qsort(result,*resultsize,sizeof(int),cmp);
     return result;
     }
     
-}
